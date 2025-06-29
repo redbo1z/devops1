@@ -267,3 +267,45 @@ resource "aws_iam_role_policy_attachment" "codepipeline_policy" {
   role       = aws_iam_role.codepipeline_role.name
   policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
+
+resource "aws_ecs_task_definition" "prometheus" {
+  family                   = "prometheus"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+
+  container_definitions = jsonencode([
+    {
+      name      = "prometheus"
+      image     = "prom/prometheus:latest"
+      essential = true
+      portMappings = [
+        { containerPort = 9090, hostPort = 9090, protocol = "tcp" }
+      ]
+      mountPoints = []
+      command = []
+    }
+  ])
+}
+
+resource "aws_ecs_task_definition" "grafana" {
+  family                   = "grafana"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+
+  container_definitions = jsonencode([
+    {
+      name      = "grafana"
+      image     = "grafana/grafana:latest"
+      essential = true
+      portMappings = [
+        { containerPort = 3000, hostPort = 3000, protocol = "tcp" }
+      ]
+    }
+  ])
+}
