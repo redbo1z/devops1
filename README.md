@@ -58,6 +58,14 @@ This project deploys a Docker image from [cuongopswat/devops-training](https://h
 - Product Service: 5001
 - Counter Service: 5002
 - Web Service: 8888
+- Prometheus: 9090
+- Grafana: 3000
+
+## Monitoring
+- **Prometheus** is deployed as an ECS service and can be accessed on port `9090`.
+- **Grafana** is deployed as an ECS service and can be accessed on port `3000`.
+- You can configure Prometheus to scrape metrics from your services and visualize them in Grafana.
+
 
 ## Cleanup
 To remove all resources created by this project, run:
