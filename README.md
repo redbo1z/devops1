@@ -76,6 +76,5 @@ Confirm the action when prompted.
 
 ## Notes
 - The CI/CD pipeline uses AWS CodePipeline and CodeBuild to automate deployments.
-- Update the `buildspec.yml` file if you need to customize the build and deployment steps.
 - For security, restrict security group ingress rules as needed and avoid using `AdministratorAccess` in IAM roles.
 
